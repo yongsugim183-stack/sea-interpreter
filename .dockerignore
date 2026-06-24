@@ -1,0 +1,9 @@
+__pycache__
+*.pyc
+*.pyo
+server_log.txt
+temp_b64.txt
+test_audio.mp3
+start_server.*
+실행방법.txt
+.git

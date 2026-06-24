@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>동남아시아 동시통역기</title>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --accent: #a855f7;
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface2: #273549;
+      --border: #334155;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      zoom: 1.2;
+    }
+
+    /* ── 헤더 ── */
+    header {
+      background: linear-gradient(135deg, #1e1b4b, #312e81, #1e1b4b);
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header .logo { font-size: 32px; }
+    header h1 { font-size: 20px; font-weight: 700; }
+    header p { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+    .status-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 6px var(--success);
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .status-dot.inactive { background: var(--text-muted); box-shadow: none; }
+
+    /* ── 메인 레이아웃 ── */
+    .main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px 20px;
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 900px) {
+      .main { grid-template-columns: 1fr; }
+    }
+
+    /* ── 입력 패널 ── */
+    .input-panel {
+      background: var(--surface);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      height: fit-content;
+      position: sticky;
+      top: 90px;
+    }
+
+    .panel-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* 마이크 버튼 */
+    .mic-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 20px;
+      background: var(--surface2);
+      border-radius: 12px;
+    }
+    .mic-btn {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      font-size: 32px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(99,102,241,0.4);
+    }
+    .mic-btn:hover { transform: scale(1.05); }
+    .mic-btn.recording {
+      background: linear-gradient(135deg, var(--danger), #dc2626);
+      animation: pulse 1.5s infinite;
+      box-shadow: 0 4px 20px rgba(239,68,68,0.5);
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+    .mic-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    .mic-label.recording { color: var(--danger); font-weight: 600; }
+    .spacebar-hint {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    .spacebar-hint kbd {
+      display: inline-block;
+      padding: 2px 7px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-bottom: 3px solid var(--border);
+      border-radius: 4px;
+      font-size: 11px;
+      font-family: monospace;
+      color: var(--text);
+    }
+    .spacebar-hint.recording kbd {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    /* 음파 애니메이션 */
+    .wave-bars {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 24px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .wave-bars.active { opacity: 1; }
+    .wave-bars span {
+      display: block;
+      width: 4px;
+      background: var(--danger);
+      border-radius: 2px;
+      animation: wave 1s ease-in-out infinite;
+    }
+    .wave-bars span:nth-child(1) { animation-delay: 0s;    height: 8px; }
+    .wave-bars span:nth-child(2) { animation-delay: 0.1s;  height: 16px; }
+    .wave-bars span:nth-child(3) { animation-delay: 0.2s;  height: 24px; }
+    .wave-bars span:nth-child(4) { animation-delay: 0.3s;  height: 16px; }
+    .wave-bars span:nth-child(5) { animation-delay: 0.4s;  height: 8px; }
+    @keyframes wave {
+      0%, 100% { transform: scaleY(0.4); }
+      50% { transform: scaleY(1); }
+    }
+
+    /* 텍스트 입력 */
+    .source-select {
+      padding: 10px 12px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      width: 100%;
+    }
+    .source-select:focus { outline: none; border-color: var(--primary); }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 14px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 15px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+    textarea:focus { outline: none; border-color: var(--primary); }
+    textarea::placeholder { color: var(--text-muted); }
+
+    .char-count { font-size: 12px; color: var(--text-muted); text-align: right; }
+
+    .translate-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .translate-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .translate-btn:not(:disabled):hover { opacity: 0.9; }
+
+    .clear-btn {
+      width: 100%;
+      padding: 10px;
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .clear-btn:hover { background: var(--surface2); color: var(--text); }
+
+    /* 언어 선택 토글 */
+    .lang-selector {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 10px 12px;
+      background: var(--surface);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .lang-selector-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .lang-selector-header button {
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-size: 11px;
+      cursor: pointer;
+      padding: 0;
+    }
+    /* 체크박스 언어 아이템 */
+    .lang-check-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+      user-select: none;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .lang-check-item:hover { background: var(--surface2); color: var(--text); }
+    .lang-check-item.on { color: var(--text); }
+    .lang-check-box {
+      width: 17px; height: 17px;
+      border: 2px solid var(--border);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.15s;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .lang-check-item.on .lang-check-box {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+    .lang-check-item.on .lang-check-box::after { content: '✓'; }
+
+    /* ── 번역 결과 그리드 ── */
+    .output-panel { display: flex; flex-direction: column; gap: 16px; }
+
+    .output-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .output-header h2 { font-size: 18px; font-weight: 700; }
+    .elapsed {
+      font-size: 12px;
+      color: var(--text-muted);
+      background: var(--surface);
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .lang-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .lang-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .lang-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .lang-card.translated { border-color: var(--primary); }
+    .lang-card.translated::before { opacity: 1; }
+    .lang-card:hover { transform: translateY(-2px); }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .card-flag { font-size: 24px; line-height: 1; }
+    .card-lang-name { font-size: 14px; font-weight: 600; }
+    .card-region {
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--surface2);
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: auto;
+    }
+
+    .card-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text);
+      min-height: 48px;
+    }
+    .card-text.placeholder { color: var(--text-muted); font-size: 13px; font-style: italic; }
+
+    .copy-btn {
+      margin-top: 10px;
+      padding: 6px 12px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-muted);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+    /* 로딩 스켈레톤 */
+    .skeleton {
+      background: linear-gradient(90deg, var(--surface2) 25%, var(--border) 50%, var(--surface2) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 4px;
+      height: 16px;
+      margin: 4px 0;
+    }
+    .skeleton.short { width: 60%; }
+    .skeleton.long { width: 100%; }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* 원문 표시 */
+    .source-display {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .source-display .icon { font-size: 20px; margin-top: 2px; }
+    .source-display .label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .source-display .text { font-size: 16px; line-height: 1.6; }
+
+    /* 토스트 */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--surface);
+      color: var(--text);
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+      z-index: 9999;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* 언어 필터 */
+    .lang-filter {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 12px 16px;
+      background: var(--surface);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .filter-btn {
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--text-muted);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* 언어 선택 섹션 */
+    .lang-selector-section { display: flex; flex-direction: column; gap: 8px; }
+    .region-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+    .region-btn {
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--primary);
+      background: transparent;
+      color: var(--primary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .region-btn:hover { background: var(--primary); color: white; }
+    .region-btn.active { background: var(--primary); color: white; }
+
+    .lang-group { width: 100%; margin-bottom: 4px; }
+    .lang-group-title {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+      padding-left: 8px;
+      border-left: 3px solid var(--primary);
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .lang-group-btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-bottom: 4px;
+    }
+
+    /* 실시간 자막 바 */
+    .live-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(15,23,42,0.95);
+      border-top: 1px solid var(--border);
+      padding: 12px 32px;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      backdrop-filter: blur(10px);
+      z-index: 99;
+    }
+    .live-bar.visible { display: flex; }
+    .live-badge {
+      background: var(--danger);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink { 50% { opacity: 0.5; } }
+    .live-text { font-size: 15px; color: var(--text); }
+  </style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<header>
+  <div class="logo">🌏</div>
+  <div>
+    <h1>동남아시아 동시통역기</h1>
+    <p>Voice-to-Text + Text-to-Text · 10개 언어 동시 번역</p>
+    <p style="font-size:12px; color:#a5b4fc; margin-top:2px;">제작: 한국생산성본부 김용수 &nbsp;|&nbsp; 문의 : 궁금하면 500원</p>
+  </div>
+  <div class="status-dot inactive" id="statusDot"></div>
+</header>
+
+<!-- 메인 -->
+<div class="main">
+
+  <!-- 왼쪽: 입력 패널 -->
+  <div class="input-panel">
+    <div class="panel-title">입력</div>
+
+    <!-- 마이크 -->
+    <div class="mic-container">
+      <button class="mic-btn" id="micBtn" onclick="toggleMic()" title="마이크 클릭 또는 스페이스바">
+        🎙️
+      </button>
+      <div class="wave-bars" id="waveBars">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="mic-label" id="micLabel">클릭하여 음성 입력</div>
+      <div class="spacebar-hint" id="spacebarHint">
+        <kbd>SPACE</kbd> 눌러서 시작 · 다시 눌러서 종료
+      </div>
+    </div>
+
+    <!-- 입력 언어 선택 -->
+    <select class="source-select" id="sourceLang">
+      <option value="auto">🔍 자동 감지</option>
+      <option value="ko">🇰🇷 한국어</option>
+      <option value="en">🇺🇸 English</option>
+      <option value="zh">🇨🇳 中文</option>
+      <option value="th">🇹🇭 ภาษาไทย</option>
+      <option value="vi">🇻🇳 Tiếng Việt</option>
+      <option value="id">🇮🇩 Bahasa Indonesia</option>
+      <option value="ms">🇲🇾 Bahasa Melayu</option>
+      <option value="tl">🇵🇭 Filipino</option>
+      <option value="my">🇲🇲 မြန်မာဘာသာ</option>
+      <option value="uz">🇺🇿 O'zbek tili</option>
+    </select>
+
+    <!-- 텍스트 입력 -->
+    <textarea
+      id="inputText"
+      placeholder="번역할 텍스트를 입력하거나 마이크를 사용하세요..."
+      oninput="updateCharCount()"
+      onkeydown="handleTextareaKey(event)"
+    ></textarea>
+    <div class="char-count"><span id="charCount">0</span>자 · Shift+Enter로 줄바꿈 · Enter로 번역</div>
+
+    <button class="translate-btn" id="translateBtn" onclick="translate()">
+      🌐 전체 언어 동시 번역
+    </button>
+    <button class="clear-btn" onclick="clearAll()">✕ 초기화</button>
+
+    <!-- 서버 상태 -->
+    <div id="serverStatusBar" style="font-size:12px;color:#94a3b8;padding:6px 2px"></div>
+  </div>
+
+  <!-- 오른쪽: 번역 결과 -->
+  <div class="output-panel">
+    <div class="output-header">
+      <h2>번역 결과</h2>
+      <span class="elapsed" id="elapsedBadge" style="display:none"></span>
+    </div>
+
+    <!-- 언어 선택 -->
+    <div class="lang-selector-section">
+      <div class="lang-selector-header">
+        <span>번역 언어 선택</span>
+        <span>
+          <button onclick="selectAllLangs()">전체 선택</button>
+          <button onclick="deselectAllLangs()">전체 해제</button>
+        </span>
+      </div>
+      <div class="region-btns">
+        <button class="region-btn active" id="rbtn-all"      onclick="selectRegionFilter('all')">🌏 전체</button>
+        <button class="region-btn"        id="rbtn-동북아시아" onclick="selectRegionFilter('동북아시아')">🏙️ 동북아</button>
+        <button class="region-btn"        id="rbtn-동남아시아" onclick="selectRegionFilter('동남아시아')">🌴 동남아</button>
+        <button class="region-btn"        id="rbtn-중앙아시아" onclick="selectRegionFilter('중앙아시아')">🏔️ 중앙아</button>
+        <button class="region-btn"        id="rbtn-국제"      onclick="selectRegionFilter('국제')">🌐 국제</button>
+      </div>
+      <div class="lang-selector" id="langSelector"></div>
+    </div>
+
+    <!-- 원문 표시 -->
+    <div class="source-display" id="sourceDisplay" style="display:none">
+      <div class="icon">📝</div>
+      <div>
+        <div class="label">원문 · <span id="detectedLang">-</span></div>
+        <div class="text" id="sourceText"></div>
+      </div>
+    </div>
+
+    <!-- 언어 카드 그리드 -->
+    <div class="lang-grid" id="langGrid"></div>
+  </div>
+</div>
+
+<!-- 실시간 자막 바 -->
+<div class="live-bar" id="liveBar">
+  <span class="live-badge">LIVE</span>
+  <span class="live-text" id="liveText">음성 인식 중...</span>
+</div>
+
+<!-- 토스트 -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── 설정 ──────────────────────────────────────────
+const SERVER_BASE = window.location.origin;
+
+const LANGUAGES = {
+  ko: { name: "한국어",           flag: "🇰🇷", region: "동북아시아" },
+  en: { name: "English",         flag: "🇺🇸", region: "국제" },
+  zh: { name: "中文(简体)",       flag: "🇨🇳", region: "동북아시아" },
+  th: { name: "ภาษาไทย",         flag: "🇹🇭", region: "동남아시아" },
+  vi: { name: "Tiếng Việt",      flag: "🇻🇳", region: "동남아시아" },
+  id: { name: "Bahasa Indonesia", flag: "🇮🇩", region: "동남아시아" },
+  ms: { name: "Bahasa Melayu",   flag: "🇲🇾", region: "동남아시아" },
+  tl: { name: "Filipino",        flag: "🇵🇭", region: "동남아시아" },
+  my: { name: "မြန်မာဘာသာ",      flag: "🇲🇲", region: "동남아시아" },
+  uz: { name: "O'zbek tili",      flag: "🇺🇿", region: "중앙아시아" },
+};
+
+let activeLangs  = new Set(Object.keys(LANGUAGES));
+let recognition  = null;
+let isRecording    = false;
+let whisperAvailable = false;
+let serverAvailable  = false;
+
+// Whisper 녹음용
+let mediaRecorder = null, audioChunks = [], audioStream = null;
+let audioContext  = null, analyserNode = null;
+
+// ── 초기화 ─────────────────────────────────────────
+window.onload = async () => {
+  buildLangSelector();
+  buildCards();
+  await checkServer();
+  setupWebSpeechFallback();
+  document.addEventListener("keydown", e => {
+    if (e.code === "Space") {
+      const tag = e.target.tagName;
+      if (tag === "TEXTAREA" || tag === "INPUT" || tag === "SELECT") return;
+      e.preventDefault();
+      toggleMic();
+    }
+  });
+};
+
+async function checkServer() {
+  try {
+    const r = await fetch(`${SERVER_BASE}/health`, { signal: AbortSignal.timeout(2000) });
+    const d = await r.json();
+    serverAvailable  = true;
+    whisperAvailable = d.whisper === true;
+    const mode = whisperAvailable
+      ? (d.whisper_mode === "local" ? "로컬 Whisper" : "OpenAI Whisper")
+      : "Web Speech API";
+    document.getElementById("serverStatusBar").innerHTML =
+      `🟢 서버 연결됨 · 번역: Google Translate · STT: ${mode}`;
+    document.getElementById("statusDot").classList.remove("inactive");
+  } catch {
+    serverAvailable  = false;
+    whisperAvailable = false;
+    document.getElementById("serverStatusBar").innerHTML =
+      "🟡 서버 미연결 · 번역: MyMemory · STT: Web Speech API";
+  }
+}
+
+// ── Web Speech API 폴백 (Whisper 미설정 시) ──────────
+function setupWebSpeechFallback() {
+  if (!("webkitSpeechRecognition" in window) && !("SpeechRecognition" in window)) return;
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.continuous      = true;
+  recognition.interimResults  = true;
+  recognition.maxAlternatives = 1;
+
+  recognition.onresult = e => {
+    let interim = "", final = "";
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      const t = e.results[i][0].transcript;
+      if (e.results[i].isFinal) final += t;
+      else interim += t;
+    }
+    if (final) {
+      document.getElementById("inputText").value += final + " ";
+      updateCharCount();
+      document.getElementById("liveText").textContent = final;
+    } else {
+      document.getElementById("liveText").textContent = interim || "인식 중...";
+    }
+  };
+
+  recognition.onstart = () => {
+    isRecording = true;
+    setRecordingUI(true, false);
+    document.getElementById("liveBar").classList.add("visible");
+    document.getElementById("liveText").textContent = "⚠️ 단일언어 모드 (Whisper 미설정)";
+  };
+
+  recognition.onend = () => {
+    isRecording = false;
+    setRecordingUI(false);
+    document.getElementById("liveBar").classList.remove("visible");
+    if (document.getElementById("inputText").value.trim()) translate();
+  };
+
+  recognition.onerror = e => {
+    showToast("🎤 음성 인식 오류: " + e.error);
+    recognition.stop();
+  };
+}
+
+// ── Whisper 녹음 시작 ──────────────────────────────
+async function startWhisperRecording() {
+  try {
+    audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  } catch (e) {
+    showToast("🎤 마이크 접근 오류: " + e.message);
+    return;
+  }
+
+  audioChunks = [];
+  const mimeTypes = ["audio/webm;codecs=opus", "audio/webm", "audio/ogg;codecs=opus", "audio/ogg"];
+  const mimeType  = mimeTypes.find(t => MediaRecorder.isTypeSupported(t)) || "";
+
+  mediaRecorder = new MediaRecorder(audioStream, mimeType ? { mimeType } : {});
+  mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
+  mediaRecorder.onstop = async () => {
+    stopAudioAnalysis();
+    const blob = new Blob(audioChunks, { type: mediaRecorder.mimeType });
+    audioStream.getTracks().forEach(t => t.stop());
+    await transcribeAudio(blob);
+  };
+
+  setupSilenceDetection(audioStream);
+  mediaRecorder.start(100);
+  isRecording = true;
+  setRecordingUI(true, true);
+  document.getElementById("liveBar").classList.add("visible");
+  document.getElementById("liveText").textContent = "🎙️ 녹음 중... (혼합 언어 인식 가능)";
+}
+
+// ── Whisper 녹음 정지 ──────────────────────────────
+function stopWhisperRecording() {
+  if (mediaRecorder && mediaRecorder.state !== "inactive") {
+    mediaRecorder.stop();
+    isRecording = false;
+    setRecordingUI(false);
+    document.getElementById("liveText").textContent = "⏳ Whisper 음성 분석 중...";
+  }
+}
+
+// ── 침묵 자동 감지 ─────────────────────────────────
+function setupSilenceDetection(stream) {
+  audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  analyserNode = audioContext.createAnalyser();
+  analyserNode.fftSize = 256;
+  const source = audioContext.createMediaStreamSource(stream);
+  source.connect(analyserNode);
+
+  const data     = new Uint8Array(analyserNode.frequencyBinCount);
+  let silenceMs  = 0;
+  const THRESH   = 8;    // 평균 진폭 임계값
+  const MAX_IDLE = 1200; // 1.2초 침묵 시 자동 정지
+
+  function tick() {
+    if (!isRecording) return;
+    analyserNode.getByteFrequencyData(data);
+    const avg = data.reduce((a, b) => a + b, 0) / data.length;
+    silenceMs  = avg < THRESH ? silenceMs + 100 : 0;
+    if (silenceMs >= MAX_IDLE) { stopWhisperRecording(); return; }
+    setTimeout(tick, 100);
+  }
+  setTimeout(tick, 100);
+}
+
+function stopAudioAnalysis() {
+  if (audioContext) { audioContext.close(); audioContext = null; analyserNode = null; }
+}
+
+// ── Whisper API 전송 ────────────────────────────────
+async function transcribeAudio(blob) {
+  const ext      = blob.type.includes("ogg") ? "ogg" : "webm";
+  const formData = new FormData();
+  formData.append("audio", blob, `recording.${ext}`);
+
+  try {
+    document.getElementById("liveText").textContent = "⏳ Whisper 음성 분석 중...";
+    document.getElementById("liveBar").classList.add("visible");
+
+    const res = await fetch(`${SERVER_BASE}/api/transcribe`, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ detail: "알 수 없는 오류" }));
+      throw new Error(err.detail || "전사 실패");
+    }
+
+    const result = await res.json();
+    if (result.text && result.text.trim()) {
+      document.getElementById("inputText").value = result.text.trim();
+      updateCharCount();
+      const langName = getWhisperLangName(result.language);
+      document.getElementById("liveText").textContent = `✅ 감지 언어: ${langName}`;
+      showToast(`🎙️ 인식 완료 · ${langName}`);
+      translate();
+    } else {
+      showToast("⚠️ 음성이 인식되지 않았습니다.");
+      document.getElementById("liveBar").classList.remove("visible");
+    }
+  } catch (e) {
+    showToast("❌ 전사 오류: " + e.message);
+    document.getElementById("liveBar").classList.remove("visible");
+  }
+}
+
+function getWhisperLangName(lang) {
+  const map = {
+    korean: "한국어", english: "영어", chinese: "중국어",
+    thai: "태국어", vietnamese: "베트남어", indonesian: "인도네시아어",
+    malay: "말레이어", filipino: "필리핀어", burmese: "미얀마어", uzbek: "우즈베크어",
+    spanish: "스페인어", french: "프랑스어",
+    german: "독일어", russian: "러시아어", arabic: "아랍어",
+  };
+  return map[lang] || lang || "자동감지";
+}
+
+// ── 마이크 토글 ────────────────────────────────────
+async function toggleMic() {
+  if (whisperAvailable) {
+    if (isRecording) stopWhisperRecording();
+    else {
+      document.getElementById("inputText").value = "";
+      await startWhisperRecording();
+    }
+  } else {
+    if (!recognition) { showToast("⚠️ Chrome 브라우저를 사용해주세요."); return; }
+    const lang = document.getElementById("sourceLang").value;
+    if (lang !== "auto") recognition.lang = getSpeechCode(lang);
+    if (isRecording) recognition.stop();
+    else {
+      document.getElementById("inputText").value = "";
+      recognition.start();
+    }
+  }
+}
+
+function setRecordingUI(recording, isWhisper = false) {
+  const btn   = document.getElementById("micBtn");
+  const label = document.getElementById("micLabel");
+  const waves = document.getElementById("waveBars");
+  const hint  = document.getElementById("spacebarHint");
+  if (recording) {
+    btn.classList.add("recording");
+    btn.textContent = "⏹️";
+    label.textContent = isWhisper
+      ? "녹음 중... (혼합 언어 인식)"
+      : "녹음 중...";
+    label.classList.add("recording");
+    waves.classList.add("active");
+    hint.classList.add("recording");
+    hint.innerHTML = "<kbd>SPACE</kbd> 눌러서 종료 후 번역";
+  } else {
+    btn.classList.remove("recording");
+    btn.textContent = "🎙️";
+    label.textContent = whisperAvailable
+      ? "클릭 또는 스페이스바로 음성 입력"
+      : "클릭 또는 스페이스바로 음성 입력";
+    label.classList.remove("recording");
+    waves.classList.remove("active");
+    hint.classList.remove("recording");
+    hint.innerHTML = "<kbd>SPACE</kbd> 눌러서 시작 · 다시 눌러서 종료";
+  }
+}
+
+// ── 언어 선택 체크박스 UI ─────────────────────────
+function buildLangSelector() {
+  const container = document.getElementById("langSelector");
+  container.innerHTML = "";
+
+  const regions = {};
+  Object.entries(LANGUAGES).forEach(([code, info]) => {
+    if (!regions[info.region]) regions[info.region] = [];
+    regions[info.region].push({ code, ...info });
+  });
+
+  const regionOrder = ["동북아시아", "국제", "동남아시아", "중앙아시아"];
+  regionOrder.forEach(region => {
+    if (!regions[region]) return;
+    const group = document.createElement("div");
+    group.className = "lang-group";
+    const title = document.createElement("div");
+    title.className = "lang-group-title";
+    title.textContent = region;
+    group.appendChild(title);
+    const btns = document.createElement("div");
+    btns.className = "lang-group-btns";
+    regions[region].forEach(({ code, flag, name }) => {
+      const item = document.createElement("div");
+      item.className = "lang-check-item on";
+      item.id = `toggle-${code}`;
+      item.onclick = () => toggleLang(code);
+      item.innerHTML = `<span class="lang-check-box"></span><span>${flag} ${name}</span>`;
+      btns.appendChild(item);
+    });
+    group.appendChild(btns);
+    container.appendChild(group);
+  });
+}
+
+function selectRegionFilter(region) {
+  // 지역 빠른 선택: 해당 지역만 활성화
+  document.querySelectorAll(".region-btn").forEach(b => b.classList.remove("active"));
+  document.getElementById(`rbtn-${region}`)?.classList.add("active");
+
+  if (region === "all") {
+    selectAllLangs();
+    return;
+  }
+
+  Object.keys(LANGUAGES).forEach(code => {
+    activeLangs.delete(code);
+    document.getElementById(`toggle-${code}`)?.classList.remove("on");
+  });
+  Object.entries(LANGUAGES).forEach(([code, info]) => {
+    if (info.region === region) {
+      activeLangs.add(code);
+      document.getElementById(`toggle-${code}`)?.classList.add("on");
+    }
+  });
+  refreshCards();
+}
+
+function _syncRegionBtnState() {
+  // 수동 토글 후 지역 버튼 상태 동기화
+  const activeCount = activeLangs.size;
+  const totalCount  = Object.keys(LANGUAGES).length;
+  document.querySelectorAll(".region-btn").forEach(b => b.classList.remove("active"));
+  if (activeCount === totalCount) {
+    document.getElementById("rbtn-all")?.classList.add("active");
+  }
+}
+
+function toggleLang(code) {
+  const btn = document.getElementById(`toggle-${code}`);
+  if (activeLangs.has(code)) {
+    activeLangs.delete(code);
+    btn.classList.remove("on");
+  } else {
+    activeLangs.add(code);
+    btn.classList.add("on");
+  }
+  _syncRegionBtnState();
+  refreshCards();
+}
+
+function selectAllLangs() {
+  Object.keys(LANGUAGES).forEach(code => {
+    activeLangs.add(code);
+    document.getElementById(`toggle-${code}`)?.classList.add("on");
+  });
+  document.querySelectorAll(".region-btn").forEach(b => b.classList.remove("active"));
+  document.getElementById("rbtn-all")?.classList.add("active");
+  refreshCards();
+}
+
+function deselectAllLangs() {
+  Object.keys(LANGUAGES).forEach(code => {
+    activeLangs.delete(code);
+    document.getElementById(`toggle-${code}`)?.classList.remove("on");
+  });
+  document.querySelectorAll(".region-btn").forEach(b => b.classList.remove("active"));
+  refreshCards();
+}
+
+function refreshCards() {
+  Object.keys(LANGUAGES).forEach(code => {
+    const card = document.getElementById(`card-${code}`);
+    if (card) card.style.display = activeLangs.has(code) ? "" : "none";
+  });
+  updateGridLayout();
+  updateTranslateBtn();
+}
+
+function updateGridLayout() {
+  const n = activeLangs.size;
+  const grid = document.getElementById("langGrid");
+  let cols, minH, fs;
+  if      (n <= 1)  { cols = 1; minH = "220px"; fs = "22px"; }
+  else if (n <= 2)  { cols = 2; minH = "200px"; fs = "20px"; }
+  else if (n <= 4)  { cols = 2; minH = "170px"; fs = "18px"; }
+  else if (n <= 6)  { cols = 3; minH = "140px"; fs = "16px"; }
+  else if (n <= 9)  { cols = 3; minH = "120px"; fs = "15px"; }
+  else              { cols = 4; minH = "100px"; fs = "14px"; }
+  grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+  document.querySelectorAll(".lang-card .card-text").forEach(el => {
+    el.style.fontSize = fs;
+    el.style.minHeight = minH;
+  });
+}
+
+function updateTranslateBtn() {
+  const n = activeLangs.size;
+  const btn = document.getElementById("translateBtn");
+  if (btn && !btn.disabled) btn.textContent = `🌐 ${n}개 언어 동시 번역`;
+}
+
+// ── 카드 생성 ──────────────────────────────────────
+function buildCards() {
+  const grid = document.getElementById("langGrid");
+  grid.innerHTML = "";
+  Object.entries(LANGUAGES).forEach(([code, info]) => {
+    const card = document.createElement("div");
+    card.className = "lang-card";
+    card.id = `card-${code}`;
+    card.dataset.region = info.region;
+    card.innerHTML = `
+      <div class="card-header">
+        <span class="card-flag">${info.flag}</span>
+        <span class="card-lang-name">${info.name}</span>
+        <span class="card-region">${info.region}</span>
+      </div>
+      <div class="card-text placeholder" id="text-${code}">번역 대기 중...</div>
+      <button class="copy-btn" id="copy-${code}" onclick="copyText('${code}')" style="display:none">📋 복사</button>
+    `;
+    grid.appendChild(card);
+  });
+  updateGridLayout();
+  updateTranslateBtn();
+}
+
+// ── 번역 ───────────────────────────────────────────
+async function translate() {
+  const text = document.getElementById("inputText").value.trim();
+  if (!text) { showToast("⚠️ 번역할 텍스트를 입력하세요."); return; }
+
+  const btn = document.getElementById("translateBtn");
+  btn.disabled = true;
+  btn.textContent = "⏳ 번역 중...";
+  showLoading();
+
+  try {
+    let result;
+    if (serverAvailable) {
+      try {
+        result = await callGoogleTranslate(text);
+      } catch {
+        result = await callMyMemory(text);
+      }
+    } else {
+      result = await callMyMemory(text);
+    }
+    displayResult(result);
+  } catch (e) {
+    showToast("❌ " + (e.message || "번역 오류가 발생했습니다."));
+    resetCards();
+  } finally {
+    btn.disabled = false;
+    updateTranslateBtn();
+  }
+}
+
+// 서버 경유 Google Translate (무료, API 키 불필요)
+async function callGoogleTranslate(text) {
+  const res = await fetch(`${SERVER_BASE}/api/translate`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      text,
+      source_lang: document.getElementById("sourceLang").value,
+      target_langs: [...activeLangs],
+    }),
+  });
+  if (!res.ok) throw new Error(`서버 오류: ${res.status}`);
+  return res.json();
+}
+
+// 서버 없을 때 MyMemory 직접 호출 폴백
+async function callMyMemory(text) {
+  const gtMap = { ko:"ko",en:"en",zh:"zh-CN",ja:"ja",th:"th",vi:"vi",
+                  id:"id",ms:"ms",tl:"tl",my:"my",km:"km",lo:"lo",uz:"uz" };
+  const start = Date.now();
+  const translations = {};
+  await Promise.all([...activeLangs].map(async code => {
+    try {
+      const r = await fetch(
+        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=auto|${gtMap[code]||code}`
+      );
+      const d = await r.json();
+      translations[code] = d.responseData?.translatedText || "";
+    } catch { translations[code] = ""; }
+  }));
+  return { source_text: text, translations, elapsed_ms: Date.now() - start };
+}
+
+function displayResult(result) {
+  // 원문 표시
+  const sourceDiv = document.getElementById("sourceDisplay");
+  document.getElementById("sourceText").textContent = result.source_text || document.getElementById("inputText").value;
+  document.getElementById("detectedLang").textContent =
+    LANGUAGES[result.source_lang || result.detected_lang]?.name || result.source_lang || "자동감지";
+  sourceDiv.style.display = "flex";
+
+  // 번역 결과 표시
+  const translations = result.translations || {};
+  activeLangs.forEach(code => {
+    const textEl = document.getElementById(`text-${code}`);
+    const copyEl = document.getElementById(`copy-${code}`);
+    const card = document.getElementById(`card-${code}`);
+    if (!textEl) return;
+    if (translations[code]) {
+      textEl.textContent = translations[code];
+      textEl.classList.remove("placeholder");
+      copyEl.style.display = "inline-block";
+      card.classList.add("translated");
+    }
+  });
+
+  // 소요 시간
+  if (result.elapsed_ms) {
+    const badge = document.getElementById("elapsedBadge");
+    badge.textContent = `⚡ ${(result.elapsed_ms / 1000).toFixed(1)}초`;
+    badge.style.display = "inline-block";
+  }
+
+  // 상태 점
+  document.getElementById("statusDot").classList.remove("inactive");
+
+  showToast(`✅ ${activeLangs.size}개 언어 번역 완료!`);
+}
+
+function showLoading() {
+  activeLangs.forEach(code => {
+    const textEl = document.getElementById(`text-${code}`);
+    const copyEl = document.getElementById(`copy-${code}`);
+    const card = document.getElementById(`card-${code}`);
+    if (!textEl) return;
+    textEl.innerHTML = '<div class="skeleton long"></div><div class="skeleton short"></div>';
+    textEl.classList.remove("placeholder");
+    copyEl.style.display = "none";
+    card.classList.remove("translated");
+  });
+}
+
+function resetCards() {
+  Object.keys(LANGUAGES).forEach(code => {
+    const textEl = document.getElementById(`text-${code}`);
+    if (!textEl) return;
+    textEl.textContent = "번역 대기 중...";
+    textEl.classList.add("placeholder");
+    document.getElementById(`card-${code}`)?.classList.remove("translated");
+  });
+}
+
+
+// ── 유틸 ───────────────────────────────────────────
+function updateCharCount() {
+  const len = document.getElementById("inputText").value.length;
+  document.getElementById("charCount").textContent = len;
+}
+
+function handleTextareaKey(e) {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    translate();
+  }
+}
+
+function clearAll() {
+  document.getElementById("inputText").value = "";
+  document.getElementById("charCount").textContent = "0";
+  document.getElementById("sourceDisplay").style.display = "none";
+  document.getElementById("elapsedBadge").style.display = "none";
+  document.getElementById("statusDot").classList.add("inactive");
+  resetCards();
+}
+
+function copyText(code) {
+  const text = document.getElementById(`text-${code}`).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    showToast(`📋 ${LANGUAGES[code].name} 번역 복사됨`);
+  });
+}
+
+let toastTimer;
+function showToast(msg) {
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove("show"), 3000);
+}
+</script>
+</body>
+</html>

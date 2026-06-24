@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/김용수/AppData/Roaming/Claude/local-agent-mode-sessions/skills-plugin/95e4214d-aa72-4a24-af8d-faf9da8c03fa/7c8091d3-157a-4e85-8652-d9cbe5787539/skills/pptx/**)",
+      "Bash(python scripts/extract-text.py \"C:\\\\Users\\\\김용수\\\\OneDrive - 한국생산성본부\\\\바탕 화면\\\\ppt자료\\\\\\(KPC 제안서\\) 2025 거제대학교 국제교류원 취업캠프 프로그램\\(25.12.\\).pptx\")",
+      "Bash(pip install *)",
+      "Bash(python -c ' *)",
+      "PowerShell(pandoc \"C:\\\\Users\\\\����\\\\OneDrive - �ѱ����꼺����\\\\���� ȭ��\\\\[���������濪��������]26�� AI ���غ� ���� ��� ��Ź���� �뿪\\\\proposal_plan.docx\" -t plain 2>&1)",
+      "PowerShell(python $skillScripts --headless --convert-to pdf $pptxFile 2>&1)",
+      "PowerShell($pptxFile = \"C:\\\\Users\\\\����\\\\OneDrive - �ѱ����꼺����\\\\���� ȭ��\\\\ppt�ڷ�\\\\\\(KPC ���ȼ�\\) 2025 �������б� ���������� ���ķ�� ���α׷�\\(25.12.\\).pptx\")",
+      "PowerShell($skillScripts = \"C:\\\\Users\\\\����\\\\AppData\\\\Local\\\\Packages\\\\Claude_pzs8sxrjxfjjc\\\\LocalCache\\\\Roaming\\\\Claude\\\\local-agent-mode-sessions\\\\skills-plugin\\\\95e4214d-aa72-4a24-af8d-faf9da8c03fa\\\\7c8091d3-157a-4e85-8652-d9cbe5787539\\\\skills\\\\pptx\\\\scripts\\\\office\\\\soffice.py\")",
+      "Bash(python inspect_pptx.py)",
+      "Bash(python create_proposal.py)",
+      "Bash(python verify.py)",
+      "Bash(python fix_proposal.py)",
+      "Bash(python update_instructors.py)",
+      "Bash(ls \"C:\\\\Users\\\\김용수\\\\sea-interpreter\\\\\" 2>&1)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\김용수\\\\sea-interpreter\\\\\" | Where-Object { $_.Extension -eq \".pptx\" })",
+      "PowerShell(python \"C:\\\\Users\\\\����\\\\sea-interpreter\\\\fix_proposal.py\" 2>&1)",
+      "Bash(gh auth *)",
+      "PowerShell(gh --version 2>$null)"
+    ]
+  }
+}

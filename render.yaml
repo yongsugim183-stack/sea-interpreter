@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: sea-interpreter
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: WHISPER_MODEL
+        value: tiny
+      - key: WHISPER_THREADS
+        value: "2"
