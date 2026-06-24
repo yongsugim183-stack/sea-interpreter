@@ -3,622 +3,623 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>동남아시아 동시통역기 | 한국생산성본부</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>동남아시아 동시통역기</title>
   <style>
     :root {
-      --kpc-navy:    #003087;
-      --kpc-blue:    #0057b8;
-      --kpc-light:   #e8f0fa;
-      --kpc-accent:  #e8001d;
-      --bg:          #f5f7fa;
-      --surface:     #ffffff;
-      --border:      #dde3ec;
-      --text:        #1a2238;
-      --text-muted:  #6b7a99;
-      --success:     #1a7f4e;
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --accent: #a855f7;
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface2: #273549;
+      --border: #334155;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+      font-family: 'Segoe UI', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      font-size: 14px;
+      zoom: 1.2;
     }
-
-    /* ── 상단 배너 (KPC 브랜딩) ── */
-    .top-banner {
-      background: var(--kpc-navy);
-      color: white;
-      font-size: 11px;
-      padding: 6px 40px;
-      display: flex;
-      justify-content: flex-end;
-      gap: 16px;
-    }
-    .top-banner a { color: #aac4e8; text-decoration: none; }
-    .top-banner a:hover { color: white; }
 
     /* ── 헤더 ── */
     header {
-      background: white;
-      border-bottom: 3px solid var(--kpc-navy);
-      padding: 0 40px;
-      display: flex;
-      align-items: stretch;
-      gap: 0;
-    }
-    .header-logo {
+      background: linear-gradient(135deg, #1e1b4b, #312e81, #1e1b4b);
+      padding: 20px 32px;
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 16px 0;
-      border-right: 1px solid var(--border);
-      padding-right: 28px;
-      margin-right: 28px;
-      text-decoration: none;
-      color: inherit;
+      gap: 16px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-    .logo-emblem {
-      width: 44px; height: 44px;
-      background: var(--kpc-navy);
-      border-radius: 4px;
-      display: flex; align-items: center; justify-content: center;
-      color: white; font-size: 20px; font-weight: 900;
-      letter-spacing: -1px;
-    }
-    .logo-text { line-height: 1.3; }
-    .logo-text .org { font-size: 11px; color: var(--text-muted); font-weight: 400; }
-    .logo-text .service { font-size: 17px; font-weight: 700; color: var(--kpc-navy); }
-    .header-nav {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      flex: 1;
-    }
-    .nav-item {
-      padding: 0 18px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-muted);
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      margin-bottom: -3px;
-      transition: all 0.15s;
-    }
-    .nav-item:hover, .nav-item.active {
-      color: var(--kpc-navy);
-      border-bottom-color: var(--kpc-navy);
-    }
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-left: auto;
-    }
-    .status-chip {
-      display: flex; align-items: center; gap: 6px;
-      padding: 5px 12px;
-      border-radius: 2px;
-      background: var(--kpc-light);
-      font-size: 12px;
-      color: var(--kpc-navy);
-      font-weight: 500;
-    }
+    header .logo { font-size: 32px; }
+    header h1 { font-size: 20px; font-weight: 700; }
+    header p { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
     .status-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: #ccc;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 6px var(--success);
+      margin-left: auto;
+      flex-shrink: 0;
     }
-    .status-dot.active { background: var(--success); }
-
-    /* ── 페이지 타이틀 바 ── */
-    .page-title-bar {
-      background: linear-gradient(135deg, var(--kpc-navy) 0%, var(--kpc-blue) 100%);
-      padding: 28px 40px;
-      color: white;
-    }
-    .page-title-bar h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
-    .page-title-bar p { font-size: 13px; color: #aac4e8; }
-    .breadcrumb {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 12px; color: #aac4e8;
-      margin-bottom: 10px;
-    }
-    .breadcrumb span { opacity: 0.6; }
+    .status-dot.inactive { background: var(--text-muted); box-shadow: none; }
 
     /* ── 메인 레이아웃 ── */
     .main {
-      max-width: 1320px;
-      margin: 28px auto;
-      padding: 0 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px 20px;
       display: grid;
-      grid-template-columns: 340px 1fr;
-      gap: 20px;
-      align-items: start;
+      grid-template-columns: 380px 1fr;
+      gap: 24px;
     }
     @media (max-width: 900px) {
       .main { grid-template-columns: 1fr; }
-      header { padding: 0 16px; }
-      .page-title-bar { padding: 20px 16px; }
     }
-
-    /* ── 카드 공통 ── */
-    .card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .card-title-bar {
-      background: var(--kpc-navy);
-      color: white;
-      padding: 11px 18px;
-      font-size: 13px;
-      font-weight: 700;
-      display: flex; align-items: center; gap: 8px;
-      letter-spacing: 0.3px;
-    }
-    .card-title-bar .icon { font-size: 15px; }
-    .card-body { padding: 18px; }
 
     /* ── 입력 패널 ── */
     .input-panel {
+      background: var(--surface);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 24px;
       display: flex;
       flex-direction: column;
       gap: 16px;
+      height: fit-content;
       position: sticky;
-      top: 16px;
+      top: 90px;
     }
 
-    /* 마이크 영역 */
-    .mic-area {
-      display: flex; flex-direction: column; align-items: center;
-      gap: 10px;
+    .panel-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* 마이크 버튼 */
+    .mic-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
       padding: 20px;
-      background: var(--kpc-light);
-      border: 1px dashed #aac4e8;
-      border-radius: 4px;
+      background: var(--surface2);
+      border-radius: 12px;
     }
     .mic-btn {
-      width: 72px; height: 72px;
+      width: 80px; height: 80px;
       border-radius: 50%;
       border: none;
-      background: var(--kpc-navy);
-      color: white; font-size: 28px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      font-size: 32px;
       cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
       transition: all 0.2s;
-      box-shadow: 0 2px 8px rgba(0,48,135,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(99,102,241,0.4);
     }
-    .mic-btn:hover { background: var(--kpc-blue); transform: scale(1.04); }
+    .mic-btn:hover { transform: scale(1.05); }
     .mic-btn.recording {
-      background: var(--kpc-accent);
+      background: linear-gradient(135deg, var(--danger), #dc2626);
       animation: pulse 1.5s infinite;
-      box-shadow: 0 2px 12px rgba(232,0,29,0.4);
+      box-shadow: 0 4px 20px rgba(239,68,68,0.5);
     }
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.06); }
+      50% { transform: scale(1.08); }
     }
-    .mic-label { font-size: 12px; color: var(--text-muted); font-weight: 500; }
-    .mic-label.recording { color: var(--kpc-accent); font-weight: 700; }
+    .mic-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    .mic-label.recording { color: var(--danger); font-weight: 600; }
+    .spacebar-hint {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    .spacebar-hint kbd {
+      display: inline-block;
+      padding: 2px 7px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-bottom: 3px solid var(--border);
+      border-radius: 4px;
+      font-size: 11px;
+      font-family: monospace;
+      color: var(--text);
+    }
+    .spacebar-hint.recording kbd {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    /* 음파 애니메이션 */
     .wave-bars {
-      display: flex; align-items: center; gap: 3px; height: 20px;
-      opacity: 0; transition: opacity 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 24px;
+      opacity: 0;
+      transition: opacity 0.3s;
     }
     .wave-bars.active { opacity: 1; }
     .wave-bars span {
-      display: block; width: 3px;
-      background: var(--kpc-accent); border-radius: 2px;
+      display: block;
+      width: 4px;
+      background: var(--danger);
+      border-radius: 2px;
       animation: wave 1s ease-in-out infinite;
     }
-    .wave-bars span:nth-child(1) { animation-delay: 0s;   height: 6px; }
-    .wave-bars span:nth-child(2) { animation-delay: 0.1s; height: 14px; }
-    .wave-bars span:nth-child(3) { animation-delay: 0.2s; height: 20px; }
-    .wave-bars span:nth-child(4) { animation-delay: 0.3s; height: 14px; }
-    .wave-bars span:nth-child(5) { animation-delay: 0.4s; height: 6px; }
+    .wave-bars span:nth-child(1) { animation-delay: 0s;    height: 8px; }
+    .wave-bars span:nth-child(2) { animation-delay: 0.1s;  height: 16px; }
+    .wave-bars span:nth-child(3) { animation-delay: 0.2s;  height: 24px; }
+    .wave-bars span:nth-child(4) { animation-delay: 0.3s;  height: 16px; }
+    .wave-bars span:nth-child(5) { animation-delay: 0.4s;  height: 8px; }
     @keyframes wave {
       0%, 100% { transform: scaleY(0.4); }
       50% { transform: scaleY(1); }
     }
-    .spacebar-hint {
-      font-size: 11px; color: var(--text-muted); text-align: center;
-    }
-    .spacebar-hint kbd {
-      display: inline-block; padding: 1px 6px;
-      background: white; border: 1px solid var(--border);
-      border-bottom: 2px solid #bbb; border-radius: 3px;
-      font-size: 10px; font-family: monospace;
-    }
 
-    /* 폼 요소 */
-    .form-label {
-      font-size: 12px; font-weight: 700; color: var(--kpc-navy);
-      margin-bottom: 6px; display: block;
-    }
-    select, textarea {
-      width: 100%;
+    /* 텍스트 입력 */
+    .source-select {
+      padding: 10px 12px;
+      background: var(--surface2);
       border: 1px solid var(--border);
-      border-radius: 2px;
-      background: white;
+      border-radius: 8px;
       color: var(--text);
-      font-family: inherit;
-      font-size: 13px;
+      font-size: 14px;
+      width: 100%;
     }
-    select {
-      padding: 8px 10px;
+    .source-select:focus { outline: none; border-color: var(--primary); }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 14px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 15px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+    textarea:focus { outline: none; border-color: var(--primary); }
+    textarea::placeholder { color: var(--text-muted); }
+
+    .char-count { font-size: 12px; color: var(--text-muted); text-align: right; }
+
+    .translate-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .translate-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .translate-btn:not(:disabled):hover { opacity: 0.9; }
+
+    .clear-btn {
+      width: 100%;
+      padding: 10px;
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
       cursor: pointer;
     }
-    select:focus, textarea:focus {
-      outline: none;
-      border-color: var(--kpc-blue);
-      box-shadow: 0 0 0 2px rgba(0,87,184,0.12);
-    }
-    textarea {
-      padding: 12px;
-      min-height: 110px;
-      resize: vertical;
-      line-height: 1.7;
-    }
-    textarea::placeholder { color: #bbb; }
-    .char-count { font-size: 11px; color: var(--text-muted); text-align: right; margin-top: 4px; }
+    .clear-btn:hover { background: var(--surface2); color: var(--text); }
 
-    /* 버튼 */
-    .btn-primary {
-      width: 100%; padding: 12px;
-      background: var(--kpc-navy);
-      color: white; border: none;
-      border-radius: 2px;
-      font-size: 14px; font-weight: 700;
-      font-family: inherit;
-      cursor: pointer; transition: background 0.15s;
-      letter-spacing: 0.3px;
-    }
-    .btn-primary:hover:not(:disabled) { background: var(--kpc-blue); }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-secondary {
-      width: 100%; padding: 9px;
-      background: white; color: var(--text-muted);
-      border: 1px solid var(--border);
-      border-radius: 2px; font-size: 12px;
-      font-family: inherit; cursor: pointer; transition: all 0.15s;
-    }
-    .btn-secondary:hover { background: var(--bg); color: var(--text); }
-
-    /* 서버 상태 */
-    #serverStatusBar {
-      font-size: 11px; color: var(--text-muted);
-      padding: 6px 10px;
-      background: var(--bg);
-      border-radius: 2px;
+    /* 언어 선택 토글 */
+    .lang-selector {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 10px 12px;
+      background: var(--surface);
+      border-radius: 10px;
       border: 1px solid var(--border);
     }
-
-    /* ── 언어 선택 ── */
     .lang-selector-header {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
     }
-    .lang-selector-header span { font-size: 12px; color: var(--text-muted); }
     .lang-selector-header button {
-      background: none; border: none; color: var(--kpc-blue);
-      font-size: 11px; cursor: pointer; padding: 0;
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-size: 11px;
+      cursor: pointer;
+      padding: 0;
     }
-    .region-btns { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
-    .region-btn {
-      padding: 4px 11px; border-radius: 2px;
-      border: 1px solid var(--border);
-      background: white; color: var(--text-muted);
-      font-size: 11px; font-family: inherit; cursor: pointer; transition: all 0.15s;
-    }
-    .region-btn:hover { border-color: var(--kpc-navy); color: var(--kpc-navy); }
-    .region-btn.active { background: var(--kpc-navy); color: white; border-color: var(--kpc-navy); }
-
-    .lang-group { margin-bottom: 8px; }
-    .lang-group-title {
-      font-size: 11px; font-weight: 700; color: var(--kpc-navy);
-      padding: 4px 8px; margin-bottom: 4px;
-      border-left: 3px solid var(--kpc-navy);
-      background: var(--kpc-light);
-    }
-    .lang-group-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    /* 체크박스 언어 아이템 */
     .lang-check-item {
-      display: flex; align-items: center; gap: 7px;
-      padding: 6px 9px; border-radius: 2px; cursor: pointer;
-      transition: background 0.1s; font-size: 12px; color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
       user-select: none;
+      font-size: 13px;
+      color: var(--text-muted);
     }
-    .lang-check-item:hover { background: var(--kpc-light); color: var(--text); }
+    .lang-check-item:hover { background: var(--surface2); color: var(--text); }
     .lang-check-item.on { color: var(--text); }
     .lang-check-box {
-      width: 15px; height: 15px;
-      border: 1px solid var(--border); border-radius: 2px;
+      width: 17px; height: 17px;
+      border: 2px solid var(--border);
+      border-radius: 4px;
       display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; transition: all 0.1s; font-size: 10px; font-weight: 700;
+      flex-shrink: 0;
+      transition: all 0.15s;
+      font-size: 11px;
+      font-weight: 700;
     }
     .lang-check-item.on .lang-check-box {
-      background: var(--kpc-navy); border-color: var(--kpc-navy); color: white;
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
     }
     .lang-check-item.on .lang-check-box::after { content: '✓'; }
 
-    /* ── 결과 패널 ── */
+    /* ── 번역 결과 그리드 ── */
     .output-panel { display: flex; flex-direction: column; gap: 16px; }
+
     .output-header {
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
     }
+    .output-header h2 { font-size: 18px; font-weight: 700; }
     .elapsed {
-      font-size: 11px; color: var(--kpc-blue);
-      background: var(--kpc-light);
-      padding: 3px 10px; border-radius: 2px;
-      border: 1px solid #aac4e8; font-weight: 500;
+      font-size: 12px;
+      color: var(--text-muted);
+      background: var(--surface);
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
     }
 
-    /* 원문 표시 */
-    .source-display {
-      background: var(--kpc-light);
-      border: 1px solid #aac4e8;
-      border-left: 4px solid var(--kpc-navy);
-      border-radius: 2px;
-      padding: 12px 16px;
-    }
-    .source-display .label {
-      font-size: 11px; font-weight: 700; color: var(--kpc-navy);
-      text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;
-    }
-    .source-display .text { font-size: 15px; line-height: 1.6; color: var(--text); }
-
-    /* 언어 카드 그리드 */
     .lang-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
     }
+
     .lang-card {
-      background: white;
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 16px;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      border-radius: 14px;
+      padding: 18px;
+      transition: border-color 0.2s, transform 0.2s;
       position: relative;
       overflow: hidden;
     }
     .lang-card::before {
       content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: var(--kpc-navy); opacity: 0; transition: opacity 0.25s;
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      opacity: 0;
+      transition: opacity 0.3s;
     }
-    .lang-card.translated { border-color: #aac4e8; box-shadow: 0 2px 8px rgba(0,48,135,0.08); }
+    .lang-card.translated { border-color: var(--primary); }
     .lang-card.translated::before { opacity: 1; }
-    .lang-card:hover { border-color: var(--kpc-blue); }
+    .lang-card:hover { transform: translateY(-2px); }
 
-    .card-header-inner {
-      display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
-      padding-bottom: 8px; border-bottom: 1px solid var(--bg);
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
     }
-    .card-flag { font-size: 22px; line-height: 1; }
-    .card-lang-name { font-size: 13px; font-weight: 700; color: var(--text); }
+    .card-flag { font-size: 24px; line-height: 1; }
+    .card-lang-name { font-size: 14px; font-weight: 600; }
     .card-region {
-      font-size: 10px; color: var(--text-muted);
-      background: var(--bg); padding: 2px 7px;
-      border-radius: 2px; margin-left: auto;
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--surface2);
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: auto;
     }
 
     .card-text {
-      font-size: 14px; line-height: 1.8; color: var(--text); min-height: 44px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text);
+      min-height: 48px;
     }
-    .card-text.placeholder { color: #bbb; font-size: 12px; font-style: italic; }
+    .card-text.placeholder { color: var(--text-muted); font-size: 13px; font-style: italic; }
 
     .copy-btn {
-      margin-top: 10px; padding: 5px 11px;
-      background: white; border: 1px solid var(--border);
-      border-radius: 2px; color: var(--text-muted);
-      font-size: 11px; cursor: pointer; transition: all 0.15s; font-family: inherit;
+      margin-top: 10px;
+      padding: 6px 12px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-muted);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
     }
-    .copy-btn:hover { background: var(--kpc-navy); color: white; border-color: var(--kpc-navy); }
+    .copy-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
 
-    /* 스켈레톤 */
+    /* 로딩 스켈레톤 */
     .skeleton {
-      background: linear-gradient(90deg, var(--bg) 25%, var(--border) 50%, var(--bg) 75%);
+      background: linear-gradient(90deg, var(--surface2) 25%, var(--border) 50%, var(--surface2) 75%);
       background-size: 200% 100%;
       animation: shimmer 1.5s infinite;
-      border-radius: 2px; height: 14px; margin: 4px 0;
+      border-radius: 4px;
+      height: 16px;
+      margin: 4px 0;
     }
-    .skeleton.short { width: 55%; }
+    .skeleton.short { width: 60%; }
     .skeleton.long { width: 100%; }
     @keyframes shimmer {
       0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }
     }
 
-    /* 실시간 자막 */
-    .live-bar {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: rgba(0,48,135,0.96);
-      border-top: 2px solid var(--kpc-accent);
-      padding: 10px 40px;
-      display: none; align-items: center; gap: 12px;
-      backdrop-filter: blur(8px); z-index: 99;
+    /* 원문 표시 */
+    .source-display {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
     }
-    .live-bar.visible { display: flex; }
-    .live-badge {
-      background: var(--kpc-accent); color: white;
-      font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 2px;
-      flex-shrink: 0; animation: blink 1s infinite; letter-spacing: 1px;
+    .source-display .icon { font-size: 20px; margin-top: 2px; }
+    .source-display .label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
     }
-    @keyframes blink { 50% { opacity: 0.5; } }
-    .live-text { font-size: 14px; color: white; }
+    .source-display .text { font-size: 16px; line-height: 1.6; }
 
     /* 토스트 */
     .toast {
-      position: fixed; bottom: 24px; left: 50%;
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
       transform: translateX(-50%) translateY(80px);
-      background: var(--kpc-navy); color: white;
-      padding: 10px 22px; border-radius: 2px;
-      font-size: 13px; font-weight: 500;
-      box-shadow: 0 4px 16px rgba(0,48,135,0.3);
-      transition: transform 0.3s; z-index: 9999;
+      background: var(--surface);
+      color: var(--text);
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+      z-index: 9999;
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
-    /* 푸터 */
-    footer {
-      background: var(--kpc-navy); color: #aac4e8;
-      padding: 20px 40px;
-      font-size: 11px; line-height: 1.8;
-      margin-top: 40px;
+    /* 언어 필터 */
+    .lang-filter {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 12px 16px;
+      background: var(--surface);
+      border-radius: 10px;
+      border: 1px solid var(--border);
     }
-    footer strong { color: white; }
+    .filter-btn {
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--text-muted);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* 언어 선택 섹션 */
+    .lang-selector-section { display: flex; flex-direction: column; gap: 8px; }
+    .region-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+    .region-btn {
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--primary);
+      background: transparent;
+      color: var(--primary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .region-btn:hover { background: var(--primary); color: white; }
+    .region-btn.active { background: var(--primary); color: white; }
+
+    .lang-group { width: 100%; margin-bottom: 4px; }
+    .lang-group-title {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+      padding-left: 8px;
+      border-left: 3px solid var(--primary);
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .lang-group-btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-bottom: 4px;
+    }
+
+    /* 실시간 자막 바 */
+    .live-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(15,23,42,0.95);
+      border-top: 1px solid var(--border);
+      padding: 12px 32px;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      backdrop-filter: blur(10px);
+      z-index: 99;
+    }
+    .live-bar.visible { display: flex; }
+    .live-badge {
+      background: var(--danger);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink { 50% { opacity: 0.5; } }
+    .live-text { font-size: 15px; color: var(--text); }
   </style>
 </head>
 <body>
 
-<!-- 상단 배너 -->
-<div class="top-banner">
-  <a href="#">KPC 홈</a>
-  <a href="#">교육신청</a>
-  <a href="#">고객센터</a>
-</div>
-
 <!-- 헤더 -->
 <header>
-  <div class="header-logo">
-    <div class="logo-emblem">KPC</div>
-    <div class="logo-text">
-      <div class="org">한국생산성본부</div>
-      <div class="service">동시통역 서비스</div>
-    </div>
+  <div class="logo">🌏</div>
+  <div>
+    <h1>동남아시아 동시통역기</h1>
+    <p>Voice-to-Text + Text-to-Text · 10개 언어 동시 번역</p>
+    <p style="font-size:12px; color:#a5b4fc; margin-top:2px;">제작: 한국생산성본부 김용수 &nbsp;|&nbsp; 문의 : 궁금하면 500원</p>
   </div>
-  <nav class="header-nav">
-    <div class="nav-item active">통역 서비스</div>
-    <div class="nav-item">지원 언어</div>
-    <div class="nav-item">사용 안내</div>
-  </nav>
-  <div class="header-actions">
-    <div class="status-chip">
-      <div class="status-dot" id="statusDot"></div>
-      <span id="statusText">서버 확인 중</span>
-    </div>
-  </div>
+  <div class="status-dot inactive" id="statusDot"></div>
 </header>
-
-<!-- 페이지 타이틀 -->
-<div class="page-title-bar">
-  <div class="breadcrumb">
-    <span>KPC</span> › <span>글로벌 서비스</span> › <span>동시통역기</span>
-  </div>
-  <h1>🌏 동남아시아 동시통역기</h1>
-  <p>Voice-to-Text + Text-to-Text · 11개 언어 동시 번역 서비스</p>
-</div>
 
 <!-- 메인 -->
 <div class="main">
 
   <!-- 왼쪽: 입력 패널 -->
   <div class="input-panel">
+    <div class="panel-title">입력</div>
 
-    <!-- 음성 입력 -->
-    <div class="card">
-      <div class="card-title-bar"><span class="icon">🎙️</span> 음성 입력</div>
-      <div class="card-body">
-        <div class="mic-area">
-          <button class="mic-btn" id="micBtn" onclick="toggleMic()" title="마이크 클릭 또는 스페이스바">
-            🎙️
-          </button>
-          <div class="wave-bars" id="waveBars">
-            <span></span><span></span><span></span><span></span><span></span>
-          </div>
-          <div class="mic-label" id="micLabel">클릭하여 음성 입력</div>
-          <div class="spacebar-hint" id="spacebarHint">
-            <kbd>SPACE</kbd> 눌러서 시작 · 다시 눌러서 종료
-          </div>
-        </div>
+    <!-- 마이크 -->
+    <div class="mic-container">
+      <button class="mic-btn" id="micBtn" onclick="toggleMic()" title="마이크 클릭 또는 스페이스바">
+        🎙️
+      </button>
+      <div class="wave-bars" id="waveBars">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="mic-label" id="micLabel">클릭하여 음성 입력</div>
+      <div class="spacebar-hint" id="spacebarHint">
+        <kbd>SPACE</kbd> 눌러서 시작 · 다시 눌러서 종료
       </div>
     </div>
+
+    <!-- 입력 언어 선택 -->
+    <select class="source-select" id="sourceLang">
+      <option value="auto">🔍 자동 감지</option>
+      <option value="ko">🇰🇷 한국어</option>
+      <option value="en">🇺🇸 English</option>
+      <option value="zh">🇨🇳 中文</option>
+      <option value="th">🇹🇭 ภาษาไทย</option>
+      <option value="vi">🇻🇳 Tiếng Việt</option>
+      <option value="id">🇮🇩 Bahasa Indonesia</option>
+      <option value="ms">🇲🇾 Bahasa Melayu</option>
+      <option value="tl">🇵🇭 Filipino</option>
+      <option value="my">🇲🇲 မြန်မာဘာသာ</option>
+      <option value="uz">🇺🇿 O'zbek tili</option>
+      <option value="si">🇱🇰 සිංහල</option>
+    </select>
 
     <!-- 텍스트 입력 -->
-    <div class="card">
-      <div class="card-title-bar"><span class="icon">✏️</span> 텍스트 입력</div>
-      <div class="card-body" style="display:flex;flex-direction:column;gap:10px;">
-        <div>
-          <label class="form-label">입력 언어</label>
-          <select id="sourceLang">
-            <option value="auto">🔍 자동 감지</option>
-            <option value="ko">🇰🇷 한국어</option>
-            <option value="en">🇺🇸 English</option>
-            <option value="zh">🇨🇳 中文</option>
-            <option value="th">🇹🇭 ภาษาไทย</option>
-            <option value="vi">🇻🇳 Tiếng Việt</option>
-            <option value="id">🇮🇩 Bahasa Indonesia</option>
-            <option value="ms">🇲🇾 Bahasa Melayu</option>
-            <option value="tl">🇵🇭 Filipino</option>
-            <option value="my">🇲🇲 မြန်မာဘာသာ</option>
-            <option value="uz">🇺🇿 O'zbek tili</option>
-            <option value="si">🇱🇰 සිංහල</option>
-          </select>
-        </div>
-        <div>
-          <textarea
-            id="inputText"
-            placeholder="번역할 텍스트를 입력하거나 마이크를 사용하세요..."
-            oninput="updateCharCount()"
-            onkeydown="handleTextareaKey(event)"
-          ></textarea>
-          <div class="char-count"><span id="charCount">0</span>자 · Shift+Enter 줄바꿈 · Enter 번역</div>
-        </div>
-        <button class="btn-primary" id="translateBtn" onclick="translate()">
-          🌐 전체 언어 동시 번역
-        </button>
-        <button class="btn-secondary" onclick="clearAll()">초기화</button>
-        <div id="serverStatusBar"></div>
-      </div>
-    </div>
+    <textarea
+      id="inputText"
+      placeholder="번역할 텍스트를 입력하거나 마이크를 사용하세요..."
+      oninput="updateCharCount()"
+      onkeydown="handleTextareaKey(event)"
+    ></textarea>
+    <div class="char-count"><span id="charCount">0</span>자 · Shift+Enter로 줄바꿈 · Enter로 번역</div>
 
+    <button class="translate-btn" id="translateBtn" onclick="translate()">
+      🌐 전체 언어 동시 번역
+    </button>
+    <button class="clear-btn" onclick="clearAll()">✕ 초기화</button>
+
+    <!-- 서버 상태 -->
+    <div id="serverStatusBar" style="font-size:12px;color:#94a3b8;padding:6px 2px"></div>
   </div>
 
-  <!-- 오른쪽: 결과 패널 -->
+  <!-- 오른쪽: 번역 결과 -->
   <div class="output-panel">
+    <div class="output-header">
+      <h2>번역 결과</h2>
+      <span class="elapsed" id="elapsedBadge" style="display:none"></span>
+    </div>
 
     <!-- 언어 선택 -->
-    <div class="card">
-      <div class="card-title-bar"><span class="icon">🌐</span> 번역 언어 선택</div>
-      <div class="card-body">
-        <div class="lang-selector-header">
-          <span>번역할 언어를 선택하세요</span>
-          <span>
-            <button onclick="selectAllLangs()">전체 선택</button>
-            &nbsp;|&nbsp;
-            <button onclick="deselectAllLangs()">전체 해제</button>
-          </span>
-        </div>
-        <div class="region-btns">
-          <button class="region-btn active" id="rbtn-all"       onclick="selectRegionFilter('all')">🌏 전체</button>
-          <button class="region-btn"        id="rbtn-동북아시아"  onclick="selectRegionFilter('동북아시아')">🏙️ 동북아</button>
-          <button class="region-btn"        id="rbtn-동남아시아"  onclick="selectRegionFilter('동남아시아')">🌴 동남아</button>
-          <button class="region-btn"        id="rbtn-중앙아시아"  onclick="selectRegionFilter('중앙아시아')">🏔️ 중앙아</button>
-          <button class="region-btn"        id="rbtn-남아시아"    onclick="selectRegionFilter('남아시아')">🌿 남아시아</button>
-          <button class="region-btn"        id="rbtn-국제"       onclick="selectRegionFilter('국제')">🌐 국제</button>
-        </div>
-        <div id="langSelector"></div>
+    <div class="lang-selector-section">
+      <div class="lang-selector-header">
+        <span>번역 언어 선택</span>
+        <span>
+          <button onclick="selectAllLangs()">전체 선택</button>
+          <button onclick="deselectAllLangs()">전체 해제</button>
+        </span>
       </div>
+      <div class="region-btns">
+        <button class="region-btn active" id="rbtn-all"      onclick="selectRegionFilter('all')">🌏 전체</button>
+        <button class="region-btn"        id="rbtn-동북아시아" onclick="selectRegionFilter('동북아시아')">🏙️ 동북아</button>
+        <button class="region-btn"        id="rbtn-동남아시아" onclick="selectRegionFilter('동남아시아')">🌴 동남아</button>
+        <button class="region-btn"        id="rbtn-중앙아시아" onclick="selectRegionFilter('중앙아시아')">🏔️ 중앙아</button>
+        <button class="region-btn"        id="rbtn-남아시아"   onclick="selectRegionFilter('남아시아')">🌿 남아시아</button>
+        <button class="region-btn"        id="rbtn-국제"      onclick="selectRegionFilter('국제')">🌐 국제</button>
+      </div>
+      <div class="lang-selector" id="langSelector"></div>
     </div>
 
     <!-- 원문 표시 -->
     <div class="source-display" id="sourceDisplay" style="display:none">
-      <div class="label">원문 · <span id="detectedLang">-</span></div>
-      <div class="text" id="sourceText"></div>
-    </div>
-
-    <!-- 소요시간 + 헤더 -->
-    <div class="output-header">
-      <div class="card-title-bar" style="border-radius:4px;font-size:13px;padding:8px 14px;">📋 번역 결과</div>
-      <span class="elapsed" id="elapsedBadge" style="display:none"></span>
+      <div class="icon">📝</div>
+      <div>
+        <div class="label">원문 · <span id="detectedLang">-</span></div>
+        <div class="text" id="sourceText"></div>
+      </div>
     </div>
 
     <!-- 언어 카드 그리드 -->
@@ -626,23 +627,17 @@
   </div>
 </div>
 
-<!-- 실시간 자막 -->
+<!-- 실시간 자막 바 -->
 <div class="live-bar" id="liveBar">
   <span class="live-badge">LIVE</span>
   <span class="live-text" id="liveText">음성 인식 중...</span>
 </div>
 
-<!-- 푸터 -->
-<footer>
-  <strong>한국생산성본부 (Korea Productivity Center)</strong><br>
-  동시통역 서비스 | 제작: 김용수 | 문의: 궁금하면 500원<br>
-  STT: faster-whisper (로컬) · 번역: Google Translate · 지원 언어: 11개
-</footer>
-
 <!-- 토스트 -->
 <div class="toast" id="toast"></div>
 
 <script>
+// ── 설정 ──────────────────────────────────────────
 const SERVER_BASE = window.location.origin;
 
 const LANGUAGES = {
@@ -665,9 +660,11 @@ let isRecording    = false;
 let whisperAvailable = false;
 let serverAvailable  = false;
 
+// Whisper 녹음용
 let mediaRecorder = null, audioChunks = [], audioStream = null;
 let audioContext  = null, analyserNode = null;
 
+// ── 초기화 ─────────────────────────────────────────
 window.onload = async () => {
   buildLangSelector();
   buildCards();
@@ -693,18 +690,17 @@ async function checkServer() {
       ? (d.whisper_mode === "local" ? "로컬 Whisper" : "OpenAI Whisper")
       : "Web Speech API";
     document.getElementById("serverStatusBar").innerHTML =
-      `🟢 서버 연결 · STT: ${mode} · 번역: Google`;
-    document.getElementById("statusDot").classList.add("active");
-    document.getElementById("statusText").textContent = "서비스 정상";
+      `🟢 서버 연결됨 · 번역: Google Translate · STT: ${mode}`;
+    document.getElementById("statusDot").classList.remove("inactive");
   } catch {
     serverAvailable  = false;
     whisperAvailable = false;
     document.getElementById("serverStatusBar").innerHTML =
-      "🟡 오프라인 · 번역: MyMemory · STT: Web Speech";
-    document.getElementById("statusText").textContent = "오프라인 모드";
+      "🟡 서버 미연결 · 번역: MyMemory · STT: Web Speech API";
   }
 }
 
+// ── Web Speech API 폴백 (Whisper 미설정 시) ──────────
 function setupWebSpeechFallback() {
   if (!("webkitSpeechRecognition" in window) && !("SpeechRecognition" in window)) return;
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -749,6 +745,7 @@ function setupWebSpeechFallback() {
   };
 }
 
+// ── Whisper 녹음 시작 ──────────────────────────────
 async function startWhisperRecording() {
   try {
     audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -778,6 +775,7 @@ async function startWhisperRecording() {
   document.getElementById("liveText").textContent = "🎙️ 녹음 중... (혼합 언어 인식 가능)";
 }
 
+// ── Whisper 녹음 정지 ──────────────────────────────
 function stopWhisperRecording() {
   if (mediaRecorder && mediaRecorder.state !== "inactive") {
     mediaRecorder.stop();
@@ -787,6 +785,7 @@ function stopWhisperRecording() {
   }
 }
 
+// ── 침묵 자동 감지 ─────────────────────────────────
 function setupSilenceDetection(stream) {
   audioContext = new (window.AudioContext || window.webkitAudioContext)();
   analyserNode = audioContext.createAnalyser();
@@ -796,8 +795,8 @@ function setupSilenceDetection(stream) {
 
   const data     = new Uint8Array(analyserNode.frequencyBinCount);
   let silenceMs  = 0;
-  const THRESH   = 8;
-  const MAX_IDLE = 1200;
+  const THRESH   = 8;    // 평균 진폭 임계값
+  const MAX_IDLE = 1200; // 1.2초 침묵 시 자동 정지
 
   function tick() {
     if (!isRecording) return;
@@ -814,6 +813,7 @@ function stopAudioAnalysis() {
   if (audioContext) { audioContext.close(); audioContext = null; analyserNode = null; }
 }
 
+// ── Whisper API 전송 ────────────────────────────────
 async function transcribeAudio(blob) {
   const ext      = blob.type.includes("ogg") ? "ogg" : "webm";
   const formData = new FormData();
@@ -855,14 +855,14 @@ function getWhisperLangName(lang) {
   const map = {
     korean: "한국어", english: "영어", chinese: "중국어",
     thai: "태국어", vietnamese: "베트남어", indonesian: "인도네시아어",
-    malay: "말레이어", filipino: "필리핀어", burmese: "미얀마어",
-    uzbek: "우즈베크어", sinhala: "싱할라어",
-    spanish: "스페인어", french: "프랑스어", german: "독일어",
-    russian: "러시아어", arabic: "아랍어",
+    malay: "말레이어", filipino: "필리핀어", burmese: "미얀마어", uzbek: "우즈베크어",
+    spanish: "스페인어", french: "프랑스어",
+    german: "독일어", russian: "러시아어", arabic: "아랍어",
   };
   return map[lang] || lang || "자동감지";
 }
 
+// ── 마이크 토글 ────────────────────────────────────
 async function toggleMic() {
   if (whisperAvailable) {
     if (isRecording) stopWhisperRecording();
@@ -890,29 +890,38 @@ function setRecordingUI(recording, isWhisper = false) {
   if (recording) {
     btn.classList.add("recording");
     btn.textContent = "⏹️";
-    label.textContent = isWhisper ? "녹음 중... (혼합 언어 인식)" : "녹음 중...";
+    label.textContent = isWhisper
+      ? "녹음 중... (혼합 언어 인식)"
+      : "녹음 중...";
     label.classList.add("recording");
     waves.classList.add("active");
+    hint.classList.add("recording");
     hint.innerHTML = "<kbd>SPACE</kbd> 눌러서 종료 후 번역";
   } else {
     btn.classList.remove("recording");
     btn.textContent = "🎙️";
-    label.textContent = "클릭 또는 스페이스바로 음성 입력";
+    label.textContent = whisperAvailable
+      ? "클릭 또는 스페이스바로 음성 입력"
+      : "클릭 또는 스페이스바로 음성 입력";
     label.classList.remove("recording");
     waves.classList.remove("active");
+    hint.classList.remove("recording");
     hint.innerHTML = "<kbd>SPACE</kbd> 눌러서 시작 · 다시 눌러서 종료";
   }
 }
 
+// ── 언어 선택 체크박스 UI ─────────────────────────
 function buildLangSelector() {
   const container = document.getElementById("langSelector");
   container.innerHTML = "";
+
   const regions = {};
   Object.entries(LANGUAGES).forEach(([code, info]) => {
     if (!regions[info.region]) regions[info.region] = [];
     regions[info.region].push({ code, ...info });
   });
-  const regionOrder = ["동북아시아", "국제", "동남아시아", "중앙아시아", "남아시아"];
+
+  const regionOrder = ["동북아시아", "국제", "동남아시아", "중앙아시아"];
   regionOrder.forEach(region => {
     if (!regions[region]) return;
     const group = document.createElement("div");
@@ -937,9 +946,15 @@ function buildLangSelector() {
 }
 
 function selectRegionFilter(region) {
+  // 지역 빠른 선택: 해당 지역만 활성화
   document.querySelectorAll(".region-btn").forEach(b => b.classList.remove("active"));
   document.getElementById(`rbtn-${region}`)?.classList.add("active");
-  if (region === "all") { selectAllLangs(); return; }
+
+  if (region === "all") {
+    selectAllLangs();
+    return;
+  }
+
   Object.keys(LANGUAGES).forEach(code => {
     activeLangs.delete(code);
     document.getElementById(`toggle-${code}`)?.classList.remove("on");
@@ -954,15 +969,24 @@ function selectRegionFilter(region) {
 }
 
 function _syncRegionBtnState() {
+  // 수동 토글 후 지역 버튼 상태 동기화
+  const activeCount = activeLangs.size;
+  const totalCount  = Object.keys(LANGUAGES).length;
   document.querySelectorAll(".region-btn").forEach(b => b.classList.remove("active"));
-  if (activeLangs.size === Object.keys(LANGUAGES).length)
+  if (activeCount === totalCount) {
     document.getElementById("rbtn-all")?.classList.add("active");
+  }
 }
 
 function toggleLang(code) {
   const btn = document.getElementById(`toggle-${code}`);
-  if (activeLangs.has(code)) { activeLangs.delete(code); btn.classList.remove("on"); }
-  else { activeLangs.add(code); btn.classList.add("on"); }
+  if (activeLangs.has(code)) {
+    activeLangs.delete(code);
+    btn.classList.remove("on");
+  } else {
+    activeLangs.add(code);
+    btn.classList.add("on");
+  }
   _syncRegionBtnState();
   refreshCards();
 }
@@ -999,12 +1023,12 @@ function updateGridLayout() {
   const n = activeLangs.size;
   const grid = document.getElementById("langGrid");
   let cols, minH, fs;
-  if      (n <= 1)  { cols = 1; minH = "200px"; fs = "20px"; }
-  else if (n <= 2)  { cols = 2; minH = "180px"; fs = "18px"; }
-  else if (n <= 4)  { cols = 2; minH = "160px"; fs = "17px"; }
-  else if (n <= 6)  { cols = 3; minH = "130px"; fs = "15px"; }
-  else if (n <= 9)  { cols = 3; minH = "110px"; fs = "14px"; }
-  else              { cols = 4; minH = "90px";  fs = "13px"; }
+  if      (n <= 1)  { cols = 1; minH = "220px"; fs = "22px"; }
+  else if (n <= 2)  { cols = 2; minH = "200px"; fs = "20px"; }
+  else if (n <= 4)  { cols = 2; minH = "170px"; fs = "18px"; }
+  else if (n <= 6)  { cols = 3; minH = "140px"; fs = "16px"; }
+  else if (n <= 9)  { cols = 3; minH = "120px"; fs = "15px"; }
+  else              { cols = 4; minH = "100px"; fs = "14px"; }
   grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
   document.querySelectorAll(".lang-card .card-text").forEach(el => {
     el.style.fontSize = fs;
@@ -1018,6 +1042,7 @@ function updateTranslateBtn() {
   if (btn && !btn.disabled) btn.textContent = `🌐 ${n}개 언어 동시 번역`;
 }
 
+// ── 카드 생성 ──────────────────────────────────────
 function buildCards() {
   const grid = document.getElementById("langGrid");
   grid.innerHTML = "";
@@ -1025,8 +1050,9 @@ function buildCards() {
     const card = document.createElement("div");
     card.className = "lang-card";
     card.id = `card-${code}`;
+    card.dataset.region = info.region;
     card.innerHTML = `
-      <div class="card-header-inner">
+      <div class="card-header">
         <span class="card-flag">${info.flag}</span>
         <span class="card-lang-name">${info.name}</span>
         <span class="card-region">${info.region}</span>
@@ -1040,6 +1066,7 @@ function buildCards() {
   updateTranslateBtn();
 }
 
+// ── 번역 ───────────────────────────────────────────
 async function translate() {
   const text = document.getElementById("inputText").value.trim();
   if (!text) { showToast("⚠️ 번역할 텍스트를 입력하세요."); return; }
@@ -1052,8 +1079,11 @@ async function translate() {
   try {
     let result;
     if (serverAvailable) {
-      try { result = await callGoogleTranslate(text); }
-      catch { result = await callMyMemory(text); }
+      try {
+        result = await callGoogleTranslate(text);
+      } catch {
+        result = await callMyMemory(text);
+      }
     } else {
       result = await callMyMemory(text);
     }
@@ -1067,6 +1097,7 @@ async function translate() {
   }
 }
 
+// 서버 경유 Google Translate (무료, API 키 불필요)
 async function callGoogleTranslate(text) {
   const res = await fetch(`${SERVER_BASE}/api/translate`, {
     method: "POST",
@@ -1081,9 +1112,10 @@ async function callGoogleTranslate(text) {
   return res.json();
 }
 
+// 서버 없을 때 MyMemory 직접 호출 폴백
 async function callMyMemory(text) {
-  const gtMap = { ko:"ko",en:"en",zh:"zh-CN",th:"th",vi:"vi",
-                  id:"id",ms:"ms",tl:"tl",my:"my",uz:"uz",si:"si" };
+  const gtMap = { ko:"ko",en:"en",zh:"zh-CN",ja:"ja",th:"th",vi:"vi",
+                  id:"id",ms:"ms",tl:"tl",my:"my",km:"km",lo:"lo",uz:"uz" };
   const start = Date.now();
   const translations = {};
   await Promise.all([...activeLangs].map(async code => {
@@ -1099,11 +1131,14 @@ async function callMyMemory(text) {
 }
 
 function displayResult(result) {
+  // 원문 표시
+  const sourceDiv = document.getElementById("sourceDisplay");
   document.getElementById("sourceText").textContent = result.source_text || document.getElementById("inputText").value;
   document.getElementById("detectedLang").textContent =
-    LANGUAGES[result.source_lang]?.name || result.source_lang || "자동감지";
-  document.getElementById("sourceDisplay").style.display = "block";
+    LANGUAGES[result.source_lang || result.detected_lang]?.name || result.source_lang || "자동감지";
+  sourceDiv.style.display = "flex";
 
+  // 번역 결과 표시
   const translations = result.translations || {};
   activeLangs.forEach(code => {
     const textEl = document.getElementById(`text-${code}`);
@@ -1118,11 +1153,15 @@ function displayResult(result) {
     }
   });
 
+  // 소요 시간
   if (result.elapsed_ms) {
     const badge = document.getElementById("elapsedBadge");
     badge.textContent = `⚡ ${(result.elapsed_ms / 1000).toFixed(1)}초`;
     badge.style.display = "inline-block";
   }
+
+  // 상태 점
+  document.getElementById("statusDot").classList.remove("inactive");
 
   showToast(`✅ ${activeLangs.size}개 언어 번역 완료!`);
 }
@@ -1150,12 +1189,18 @@ function resetCards() {
   });
 }
 
+
+// ── 유틸 ───────────────────────────────────────────
 function updateCharCount() {
-  document.getElementById("charCount").textContent = document.getElementById("inputText").value.length;
+  const len = document.getElementById("inputText").value.length;
+  document.getElementById("charCount").textContent = len;
 }
 
 function handleTextareaKey(e) {
-  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); translate(); }
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    translate();
+  }
 }
 
 function clearAll() {
@@ -1163,12 +1208,15 @@ function clearAll() {
   document.getElementById("charCount").textContent = "0";
   document.getElementById("sourceDisplay").style.display = "none";
   document.getElementById("elapsedBadge").style.display = "none";
+  document.getElementById("statusDot").classList.add("inactive");
   resetCards();
 }
 
 function copyText(code) {
   const text = document.getElementById(`text-${code}`).textContent;
-  navigator.clipboard.writeText(text).then(() => showToast(`📋 ${LANGUAGES[code].name} 번역 복사됨`));
+  navigator.clipboard.writeText(text).then(() => {
+    showToast(`📋 ${LANGUAGES[code].name} 번역 복사됨`);
+  });
 }
 
 let toastTimer;
