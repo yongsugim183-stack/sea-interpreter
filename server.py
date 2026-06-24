@@ -101,6 +101,7 @@ LANGUAGES = {
     "tl": {"name": "Filipino",         "flag": "🇵🇭", "region": "동남아시아", "gt": "tl"},
     "my": {"name": "မြန်မာဘာသာ",       "flag": "🇲🇲", "region": "동남아시아", "gt": "my"},
     "uz": {"name": "O'zbek tili",      "flag": "🇺🇿", "region": "중앙아시아", "gt": "uz"},
+    "si": {"name": "සිංහල",             "flag": "🇱🇰", "region": "남아시아",   "gt": "si"},
 }
 
 

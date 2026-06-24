@@ -565,6 +565,7 @@
       <option value="tl">🇵🇭 Filipino</option>
       <option value="my">🇲🇲 မြန်မာဘာသာ</option>
       <option value="uz">🇺🇿 O'zbek tili</option>
+      <option value="si">🇱🇰 සිංහල</option>
     </select>
 
     <!-- 텍스트 입력 -->
@@ -606,6 +607,7 @@
         <button class="region-btn"        id="rbtn-동북아시아" onclick="selectRegionFilter('동북아시아')">🏙️ 동북아</button>
         <button class="region-btn"        id="rbtn-동남아시아" onclick="selectRegionFilter('동남아시아')">🌴 동남아</button>
         <button class="region-btn"        id="rbtn-중앙아시아" onclick="selectRegionFilter('중앙아시아')">🏔️ 중앙아</button>
+        <button class="region-btn"        id="rbtn-남아시아"   onclick="selectRegionFilter('남아시아')">🌿 남아시아</button>
         <button class="region-btn"        id="rbtn-국제"      onclick="selectRegionFilter('국제')">🌐 국제</button>
       </div>
       <div class="lang-selector" id="langSelector"></div>
@@ -649,6 +651,7 @@ const LANGUAGES = {
   tl: { name: "Filipino",        flag: "🇵🇭", region: "동남아시아" },
   my: { name: "မြန်မာဘာသာ",      flag: "🇲🇲", region: "동남아시아" },
   uz: { name: "O'zbek tili",      flag: "🇺🇿", region: "중앙아시아" },
+  si: { name: "සිංහල",            flag: "🇱🇰", region: "남아시아" },
 };
 
 let activeLangs  = new Set(Object.keys(LANGUAGES));
