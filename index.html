@@ -691,6 +691,8 @@ let audioContext  = null, analyserNode = null;
 // ── 초기화 ─────────────────────────────────────────
 // ── Render 무료 잔여 시간 계산 ──────────────────────
 const RENDER_FREE_HOURS = 750;
+// Render 배포일: 2026-06-25. 매월 이 날짜를 기준으로 청구 사이클 시작.
+const DEPLOY_DAY = 25;
 
 function updateUsageBanner() {
   const now = new Date();
@@ -699,9 +701,15 @@ function updateUsageBanner() {
   document.getElementById("currentTime").textContent =
     now.toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
 
-  // 이번 달 1일 00:00 기준 경과 시간(h)
-  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0);
-  const usedHours = Math.max(0, (now - monthStart) / 3600000);
+  // 이번 청구 사이클 시작일 계산 (매월 25일 기준)
+  let cycleStart;
+  if (now.getDate() >= DEPLOY_DAY) {
+    cycleStart = new Date(now.getFullYear(), now.getMonth(), DEPLOY_DAY, 0, 0, 0);
+  } else {
+    cycleStart = new Date(now.getFullYear(), now.getMonth() - 1, DEPLOY_DAY, 0, 0, 0);
+  }
+
+  const usedHours = Math.max(0, (now - cycleStart) / 3600000);
   const remainHours = Math.max(0, RENDER_FREE_HOURS - usedHours);
   const pct = Math.min(100, (remainHours / RENDER_FREE_HOURS) * 100);
 
