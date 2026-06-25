@@ -552,7 +552,17 @@
     <p>Voice-to-Text + Text-to-Text · 12개 언어 동시 번역 (언어추가 문의)</p>
     <p style="font-size:12px; color:#a5b4fc; margin-top:2px;">제작: 한국생산성본부 김용수 &nbsp;|&nbsp; 문의 : ysukim@kpc.or.kr</p>
   </div>
-  <div class="status-dot inactive" id="statusDot"></div>
+  <div style="display:flex;align-items:center;gap:10px;margin-left:auto">
+    <div style="font-size:12px;color:#94a3b8;text-align:right">
+      <span id="userName" style="color:#a5b4fc;font-weight:600"></span>
+      <span id="activeInfo" style="margin-left:6px"></span>
+    </div>
+    <div class="status-dot inactive" id="statusDot"></div>
+    <button onclick="doLogout()" style="
+      padding:6px 12px;background:transparent;border:1px solid #334155;
+      border-radius:6px;color:#94a3b8;font-size:12px;cursor:pointer;
+    " onmouseover="this.style.color='#f1f5f9'" onmouseout="this.style.color='#94a3b8'">로그아웃</button>
+  </div>
 </header>
 
 <!-- 메인 -->
@@ -720,7 +730,26 @@ function updateUsageBanner() {
 updateUsageBanner();
 setInterval(updateUsageBanner, 1000);
 
+async function doLogout() {
+  await fetch("/api/logout", { method: "POST", credentials: "include" });
+  window.location.href = "/";
+}
+
+async function loadUserInfo() {
+  try {
+    const res = await fetch("/api/me", { credentials: "include" });
+    if (!res.ok) { window.location.href = "/"; return; }
+    const d = await res.json();
+    document.getElementById("userName").textContent = d.name + "님";
+    document.getElementById("activeInfo").textContent =
+      `(접속 ${d.active_users}/${d.max_users}명)`;
+  } catch {
+    window.location.href = "/";
+  }
+}
+
 window.onload = async () => {
+  await loadUserInfo();
   buildLangSelector();
   buildCards();
   await checkServer();
