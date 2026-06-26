@@ -101,6 +101,16 @@
     .last-updated { font-size: 11px; color: #475569; }
 
     .empty { text-align: center; padding: 32px; color: #475569; font-size: 13px; }
+    .kick-btn {
+      padding: 4px 12px;
+      background: rgba(239,68,68,0.15);
+      border: 1px solid rgba(239,68,68,0.4);
+      border-radius: 5px;
+      color: #fca5a5;
+      font-size: 12px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .kick-btn:hover { background: rgba(239,68,68,0.35); color: white; }
   </style>
 </head>
 <body>
@@ -163,6 +173,7 @@
           <th>번역 글자</th>
           <th>누적 시간</th>
           <th>마지막 접속</th>
+          <th>관리</th>
         </tr>
       </thead>
       <tbody id="statsBody">
@@ -212,6 +223,11 @@ async function loadStats() {
         <td class="num">${s.char_count.toLocaleString()}자</td>
         <td class="num">${s.total_min}분</td>
         <td style="color:#64748b;font-size:12px">${s.last_access}</td>
+        <td>
+          ${s.online
+            ? `<button class="kick-btn" onclick="kickUser('${s.code}', '${s.name}')">강제 종료</button>`
+            : '<span style="color:#334155;font-size:12px">-</span>'}
+        </td>
       </tr>
     `).join("");
 
@@ -220,6 +236,24 @@ async function loadStats() {
   } catch {
     document.getElementById("statsBody").innerHTML =
       '<tr><td colspan="7" class="empty">데이터 로드 실패</td></tr>';
+  }
+}
+
+async function kickUser(code, name) {
+  if (!confirm(`${name}(${code}) 사용자를 강제 종료하시겠습니까?`)) return;
+  try {
+    const res = await fetch(`/api/admin/kick/${code}`, {
+      method: "POST", credentials: "include"
+    });
+    if (res.ok) {
+      alert(`${name} 사용자가 강제 종료됐습니다.`);
+      loadStats();
+    } else {
+      const d = await res.json().catch(() => ({}));
+      alert("오류: " + (d.detail || "강제 종료 실패"));
+    }
+  } catch {
+    alert("서버 연결 오류");
   }
 }
 

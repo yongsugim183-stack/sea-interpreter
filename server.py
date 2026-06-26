@@ -269,6 +269,22 @@ async def me(session: str | None = Cookie(default=None)):
     active = len([x for x in _sessions.values() if not x["is_admin"]])
     return {"name": s["name"], "is_admin": s["is_admin"], "active_users": active, "max_users": MAX_CONCURRENT}
 
+@app.post("/api/admin/kick/{code}")
+async def admin_kick(code: str, session: str | None = Cookie(default=None)):
+    _require_admin(session)
+    kicked = 0
+    for token, s in list(_sessions.items()):
+        if s["code"] == code and not s["is_admin"]:
+            elapsed = _now() - s["login_time"]
+            if code in _user_stats:
+                _user_stats[code]["total_sec"] += elapsed
+            _sessions.pop(token, None)
+            kicked += 1
+    if kicked == 0:
+        raise HTTPException(status_code=404, detail="해당 사용자가 접속 중이 아닙니다.")
+    return {"ok": True, "kicked": code}
+
+
 @app.get("/api/admin/stats")
 async def admin_stats(session: str | None = Cookie(default=None)):
     _require_admin(session)
