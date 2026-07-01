@@ -77,7 +77,7 @@ def _load_fw_model():
         model_size, device="cpu", compute_type="int8",
         cpu_threads=cpu_threads, num_workers=1,
     )
-    print("[Whisper] 모델 로드 완료 — 준비됨", flush=True)
+    print("[Whisper] 모델 로드 완료 - 준비됨", flush=True)
 
 def _get_fw_model():
     return _fw_model
@@ -256,8 +256,8 @@ async def root():
     return FileResponse("index.html")
 
 
-
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8000))
     uvicorn.run("server:app", host="0.0.0.0", port=port, reload=False)
+
